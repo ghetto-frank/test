@@ -160,16 +160,16 @@ def do_send_code(int_code):
         beast_on = do_port_open("xxx.xxx.xxx.xx", 80) #check if server pc is up running web server. 
           
         if beast_on == 0: #port connected ok.
-            print("   - ERROR: Beast Is On. Not Switching Off.")
+            print("   - ERROR: Server PC Is On. Not Switching Off.")
             return -1 #radio code not sent
         else:
-            print("   - OK: Beast Appers To Be Off. Switching Off.")
+            print("   - OK: Server PC Appers To Be Off. Switching Off.")
             print(" - OK, Sending...")
-            #res = do_send("send:" + str(int_code)) #Send The Radio Code
+            #res = do_send("radio_send:" + str(int_code)) #Send The Radio Code
             	
     else:
         print(" - OK, Sending...")
-        res = do_send("send:" + str(int_code)) #Send The Radio Code
+        res = do_send("radio_send:" + str(int_code)) #Send The Radio Code
         
     #--------------------------------
      
