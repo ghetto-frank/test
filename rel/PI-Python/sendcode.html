@@ -1,0 +1,37 @@
+<html>
+	
+<head>
+<title>Home Automation Project</title>
+
+<script type='text/javascript'>
+
+(function()
+{
+  if( window.localStorage )
+  {
+    if( !localStorage.getItem('firstLoad') )
+    {
+      localStorage['firstLoad'] = true;
+      window.location.reload();
+    }  
+    else
+      localStorage.removeItem('firstLoad');
+  }
+})();
+
+</script>
+
+</head>		
+
+
+
+
+<body bgcolor="green" text="white">
+
+
+<center>
+	<h3>Sendcode OK</h3>
+</center>	
+	
+</body>
+</html>
