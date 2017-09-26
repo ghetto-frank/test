@@ -10,8 +10,12 @@ global ser #out serial lib.
 ser = "" #to avid not asined error.
 
 
-
-
+#-----------------------user set varibles---------
+ard_path = "/dev/ttyACM1" #dev location to the ardunio device. (run: 'ls /dev | grep "tty"' to find all.)
+ard_baud = 115200 #device serial baud rate.
+#----------
+srv_port = 80
+#-------------------------------------------------
 
 #------------------------------------------------------------------------------------------------
 def do_connect(device_path, baud_rate):
@@ -45,8 +49,6 @@ def do_connect(device_path, baud_rate):
     return (0, str(err_code1[1])) #return 0, device name.
 #------------------------------------------------------------------------------------------------    
 
-
- 
 #------------------------------------------------------------------------------------------------    
 def is_connected():
 	
@@ -60,8 +62,6 @@ def is_connected():
     else:
         return False
 #------------------------------------------------------------------------------------------------    
-
-    
 
 #------------------------------------------------------------------------------------------------   
 def do_send(send_line):
@@ -116,9 +116,6 @@ def do_send(send_line):
     return (0, out_line)
 #------------------------------------------------------------------------------------------------   
 
-
-
-
 #----------------------------------------------------------------------------------------------------------
 def do_port_open(str_ip, int_port): #my way of testing if a device is live, as my pc does not responde to a ping.
 
@@ -141,8 +138,6 @@ def do_port_open(str_ip, int_port): #my way of testing if a device is live, as m
     else:
         return -1 #Port is closed.
 #----------------------------------------------------------------------------------------------------------
-
-
 
 #----------------------------------------------------------------------------------------------------------
 def do_send_code(int_code):
@@ -176,8 +171,8 @@ def do_send_code(int_code):
     return 0 #radio code sent ok.
 #---------------------------------------------------------------------------------------------------------- 
  
-
-
+	
+	
 #---------------------------------------------------------------------------------------------------------- 
 class GetHandler(SimpleHTTPServer.SimpleHTTPRequestHandler):
 
@@ -209,11 +204,12 @@ print("********************************************************************")
 print("")
 print(" - Connecting To Arduino...")
 
-tr = do_connect("/dev/ttyACM1", 115200)
+tr = do_connect(str(ard_path), int(ard_baud))
 
 print("   - Arduino:'" + str(tr)) + "'."
 
 if not tr[0] == 0: #there was an error connecting here!
+    print("ERROR Conecting. Quiting.")
     quit()
     
 
@@ -222,8 +218,9 @@ print(" - OK!")
 print(" - Bringing Up Server...")
  
 
+srv_port = int(srv_port) #make sure is int.
 
-PORT = 80
+PORT = srv_port #port 80 for standerd http.
 Handler = GetHandler
 
 httpd = SocketServer.TCPServer(("", PORT), Handler)
