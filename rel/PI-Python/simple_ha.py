@@ -157,7 +157,7 @@ def do_send_code(int_code):
     if int_code == 0000000:    #EXEPTION RADIO CODE HERE!
 		
         print(" - Checking If Beast Is Off!: ")
-        beast_on = do_port_open("192.168.1.71", 3389) #check RDP(remote desktop) on my pc is open. 
+        beast_on = do_port_open("xxx.xxx.xxx.xx", 80) #check if server pc is up running web server. 
           
         if beast_on == 0: #port connected ok.
             print("   - ERROR: Beast Is On. Not Switching Off.")
